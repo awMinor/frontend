@@ -1,7 +1,10 @@
 import React from "react";
-import { createRoot } from "react-dom/client";
-import Hello from "./Hello";
+import { Provider } from "react-redux";
+import store from "./stores/UserStore";
+import RootContainer from "./containers/RootContainer";
+import LayoutPage from "./components/LayoutPage";
 
-const container = document.getElementById("root");
-const root = createRoot(container);
-root.render(<Hello />);
+let root = RootContainer();
+root.render(<Provider store={store}>
+  <LayoutPage />
+</Provider>);
