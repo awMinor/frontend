@@ -5,7 +5,6 @@ import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -15,6 +14,9 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 import { login } from '../actions/AuthActions';
+import { Link } from '@mui/material';
+import { Link as RouterLink } from 'react-router-dom';
+
 
 const theme = createTheme();
 
@@ -22,10 +24,11 @@ export default function LoginPage() {
   const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [rememberMe, setRememberMe] = useState(false);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    dispatch(login(email, password));
+    dispatch(login(email, password, rememberMe));
   };
 
   return (
@@ -72,6 +75,7 @@ export default function LoginPage() {
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
+              onChange={(event) => setRememberMe(event.target.checked)}
             />
             <Button
               type="submit"
@@ -83,7 +87,7 @@ export default function LoginPage() {
             </Button>
             <Grid container>
               <Grid item>
-                <Link href="#/register" variant="body2">
+                <Link component={RouterLink} to="/registration" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
